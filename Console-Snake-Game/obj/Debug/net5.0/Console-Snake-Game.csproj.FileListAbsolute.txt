@@ -1,0 +1,16 @@
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\Console-Snake-Game.exe
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\Console-Snake-Game.deps.json
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\Console-Snake-Game.runtimeconfig.json
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\Console-Snake-Game.runtimeconfig.dev.json
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\Console-Snake-Game.dll
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\ref\Console-Snake-Game.dll
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\bin\Debug\net5.0\Console-Snake-Game.pdb
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.csproj.AssemblyReference.cache
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.AssemblyInfoInputs.cache
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.AssemblyInfo.cs
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.csproj.CoreCompileInputs.cache
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.dll
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\ref\Console-Snake-Game.dll
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.pdb
+C:\Users\jonac\Desktop\myCareer\Projects 2021\Console-Snake-Game\Console-Snake-Game\obj\Debug\net5.0\Console-Snake-Game.genruntimeconfig.cache
