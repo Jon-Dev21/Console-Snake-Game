@@ -6,4 +6,9 @@
     <RootNamespace>Console_Snake_Game</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="CSVs\" />
+    <Folder Include="SaveStates\" />
+  </ItemGroup>
+
 </Project>
