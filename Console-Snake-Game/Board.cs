@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,72 +10,200 @@ namespace Console_Snake_Game
 {
     class Board
     {
-        /// <summary>
-        /// GameClock Timer
-        /// </summary>
-        Timer gameTimer = new Timer(400);
         public int Rows { get; set; }
         public int Columns { get; set; }
 
-        public static int secondsCount = 0;
-
         public static string boardStr = "";
+
+        /// <summary>
+        /// Board 2d string array used as the game grid.
+        /// </summary>
+        public string[,] board;
+
+        public int oldPlayerX;
+        public int oldPlayerY;
 
         public Board(int rows, int columns)
         {
+            board = new string[rows, columns];
             Rows = rows;
             Columns = columns;
-            gameTimer.Elapsed += Timer_Elapsed;
-            gameTimer.Enabled = true;
-            gameTimer.AutoReset = true;
         }
 
-        public void CreateBoard(int rows = 12, int columns = 20)
+        /// <summary>
+        /// This method creates the snake game board.
+        /// </summary>
+        public void CreateBoard()
         {
-
-            //gameTimer.Start();
-            //Console.ReadKey();
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < board.GetLength(0); i++)
             {
-                Console.Clear();
-                Console.WriteLine("============================================================================");
-
-                boardStr += "============================================================================\n";
-                for (int j = 0; j < columns; j++)
+                for (int j = 0; j < board.GetLength(1); j++)
                 {
-                    Console.WriteLine("=                                                                          =");
-                    boardStr += "=                                                                          =\n";
+                    // If the row is the first or the last row
+                    if (i == 0 || i + 1 == board.GetLength(0))
+                    {
+                        board[i, j] = "=";
+                        boardStr += "= ";
+                        if (j + 1 == board.GetLength(1))
+                        {
+                            boardStr += "\n";
+                        }
+                    }
+                    else if (j == 0 || j + 1 == board.GetLength(1))
+                    {
+                        // if the column is the first or last one, set the symbol to =.
+                        board[i, j] = "=";
+
+                        // If it's the last column, add a new line.
+                        if (j + 1 == board.GetLength(1))
+                        {
+                            boardStr += "=\n";
+                        }
+                        else
+                        {
+                            boardStr += "= ";
+                        }
+                    }
+                    else
+                    {
+                        board[i, j] = " ";
+                        boardStr += "  ";
+                    }
+
                 }
-                Console.WriteLine("============================================================================\n\n");
-                boardStr += "============================================================================";
             }
-
-
         }
 
-        private void CreateRows(int rows = 12)
+        /// <summary>
+        /// This method prints the board in the screen.
+        /// </summary>
+        public void PrintBoard()
         {
-            string rowSymbol = "=";
-            string rowString = "";
-
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < board.GetLength(0); i++)
             {
-                rowString += rowSymbol;
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    Console.Write(board[i, j] + " ");
+                }
+                Console.WriteLine();
             }
-            boardStr += rowString;
         }
 
-        private void CreateColumns(int columns = 12)
+        /// <summary>
+        /// Saves the current board state into the boardStr.
+        /// </summary>
+        public void SaveBoard()
         {
-            string rowSymbol = " ";
-            string colString = "";
-
-            for (int i = 0; i < columns; i++)
+            boardStr = "";
+            for (int i = 0; i < board.GetLength(0); i++)
             {
-                colString += rowSymbol;
+                for (int j = 0; j < board.GetLength(1); j++)
+                {
+                    // If the row is the first or the last row
+                    if (i == 0 || i + 1 == board.GetLength(0))
+                    {
+                        boardStr += "= ";
+                        if (j + 1 == board.GetLength(1))
+                        {
+                            boardStr += "\n";
+                        }
+                    }
+                    else if (j == 0 || j + 1 == board.GetLength(1))
+                    {
+                        // If it's the last column, add a new line.
+                        if (j + 1 == board.GetLength(1))
+                        {
+                            boardStr += "=\n";
+                        }
+                        else
+                        {
+                            // If it's the first column, just add a border.
+                            boardStr += "= ";
+                        }
+                    }
+                    else
+                    {
+                        boardStr += board[i, j] + " ";
+                    }
+
+                }
             }
-            boardStr += colString;
+
+            string[] lines = boardStr.Split("\n");
+            File.WriteAllLines(@"", lines);
+
         }
+
+        /// <summary>
+        /// Adds a player to the current coordinate that the player is at.
+        /// </summary>
+        /// <param name="player"></param>
+        public void AddPlayerToBoard(Player player)
+        {
+            if (player.playerBody.Length == 1)
+            {
+                // Delete old space
+                board[player.playerBody[0].OldPlayerX, player.playerBody[0].OldPlayerY] = " ";
+
+                // Update OldPlayer X and Y
+                player.playerBody[0].OldPlayerX = player.playerBody[0].playerX;
+                player.playerBody[0].OldPlayerY = player.playerBody[0].playerY;
+
+                // Add new symbol
+                board[player.playerBody[0].playerX, player.playerBody[0].playerY] = player.playerBody[0].playerSymbol.ToString();
+                
+            }
+            
+        }
+
+        public bool IsWallHit()
+        {
+            if (true)
+            {
+
+            }
+            return false;
+        }
+
+        ///// <summary>
+        ///// Creates the board's rows.
+        ///// </summary>
+        ///// <param name="rows"></param>
+        //private void CreateRows(int rows = 12)
+        //{
+        //    string rowSymbol = "=";
+        //    string rowString = "";
+
+        //    for (int i = 0; i < rows; i++)
+        //    {
+        //        rowString += rowSymbol;
+        //        board[0, i] = rowSymbol;
+        //    }
+        //    boardStr += rowString+"\n";
+        //}
+
+        ///// <summary>
+        ///// Method creates the board's column.
+        ///// </summary>
+        ///// <param name="columns"></param>
+        //private void CreateColumns(int columns = 12)
+        //{
+        //    string colEdge = "=";
+        //    string colSymbol = " ";
+        //    string colString = "";
+
+        //    for (int i = 0; i < columns; i++)
+        //    {
+        //        if(i == 0 || i+1==columns)
+        //        {
+        //            colString += colEdge;
+        //        } else
+        //        {
+        //            colString += colSymbol;
+        //        }
+        //    }
+        //    boardStr += colString;
+        //}
 
         /// <summary>
         /// Method used to return the board string. Board string is created in the timer elapsed method which executes each time the timer ends.
@@ -83,13 +212,6 @@ namespace Console_Snake_Game
         public string GetBoardString()
         {
             return boardStr;
-        }
-
-        private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            secondsCount++;
-            //Console.WriteLine(secondsCount + " Seconds");
-            
         }
     }
 }
