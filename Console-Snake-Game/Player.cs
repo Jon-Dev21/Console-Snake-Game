@@ -12,6 +12,7 @@ namespace Console_Snake_Game
         public string playerName;
         public bool isAlive;
         public int playerHighScore;
+        private string lastMove;
         
         /// <summary>
         /// Player takes in a player name, a player snake symbol, an x coordinate and a y coordinate
@@ -27,36 +28,101 @@ namespace Console_Snake_Game
         }
 
         /// <summary>
-        /// This method moves the player randomly.
+        /// This method moves the player depending on the input.
         /// </summary>
-        public void MovePlayer()
+        //public void MovePlayer()
+        //{
+
+        //    if (Console.ReadKey().Key == ConsoleKey.W)
+        //    {
+        //        // Moving Up
+        //        MoveUp();
+        //    } 
+        //    else if (Console.ReadKey().Key == ConsoleKey.S)
+        //    {
+        //        // Moving Down
+        //        MoveDown();
+        //    }
+        //     else if (Console.ReadKey().Key == ConsoleKey.A)
+        //    {
+        //        // Console.ReadKey().Key == ConsoleKey.A
+        //        // Moving Left
+        //        MoveLeft();
+        //    }
+        //    else if (Console.ReadKey().Key == ConsoleKey.D)
+        //    {
+        //        // Moving Right
+        //        MoveRight();
+        //    }
+        //    //else
+        //    //{
+        //    //    Console.WriteLine("I don't know what the kell you pressed.");
+        //    //}
+        //}
+
+        /// <summary>
+        /// Method used to change player coordinates based on keyboard input.
+        /// </summary>
+        /// <param name="input"></param>
+        public void Move(string input)
         {
-            if (Console.ReadKey().Key == ConsoleKey.W)
+            if (input.ToLower() == "w" && lastMove != "DOWN")
             {
                 // Moving Up
                 MoveUp();
-            } 
-            else if (Console.ReadKey().Key == ConsoleKey.S)
+                lastMove = "UP";
+            }
+            else if (input.ToLower() == "s" && lastMove != "UP")
             {
                 // Moving Down
                 MoveDown();
+                lastMove = "DOWN";
             }
-             else if (Console.ReadKey().Key == ConsoleKey.A)
+            else if (input.ToLower() == "a" && lastMove != "RIGHT")
             {
+                // Console.ReadKey().Key == ConsoleKey.A
                 // Moving Left
                 MoveLeft();
+                lastMove = "LEFT";
             }
-            else if (Console.ReadKey().Key == ConsoleKey.D)
+            else if (input.ToLower() == "d" && lastMove != "LEFT")
             {
                 // Moving Right
                 MoveRight();
+                lastMove = "RIGHT";
             }
             else
             {
-                Console.WriteLine("I don't know what the kell you pressed.");
+                // Make the last move
+                switch (lastMove)
+                {
+                    case "UP":
+                        MoveUp();
+                        break;
+                    case "DOWN":
+                        MoveDown();
+                        break;
+                    case "LEFT":
+                        MoveLeft();
+                        break;
+                    case "RIGHT":
+                        MoveRight();
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
+        public void MovePlayerBody()
+        {
+            //for (int  i= 0; i < playerBody.Length; i++)
+            //{
+            //    bodyPart.OldX = bodyPart.X;
+            //    bodyPart.OldY = bodyPart.Y;
+            //    bodyPart.X =
+            //}
+        }
 
         /// <summary>
         /// y,  x
@@ -68,7 +134,7 @@ namespace Console_Snake_Game
         {
             foreach (var bodyPart in playerBody)
             {
-                bodyPart.playerY--;
+                bodyPart.Y--;
             }
         }
 
@@ -78,11 +144,11 @@ namespace Console_Snake_Game
         /// 
         /// To move right, add 1 to the y value in the array
         /// </summary>
-        private void MoveRight()
+        public void MoveRight()
         {
             foreach (var bodyPart in playerBody)
             {
-                bodyPart.playerY++;
+                bodyPart.Y++;
             }
         }
 
@@ -96,7 +162,7 @@ namespace Console_Snake_Game
         {
             foreach (var bodyPart in playerBody)
             {
-                bodyPart.playerX--;
+                bodyPart.X--;
             }
         }
 
@@ -110,7 +176,7 @@ namespace Console_Snake_Game
         {
             foreach (var bodyPart in playerBody)
             {
-                bodyPart.playerX++;
+                bodyPart.X++;
             }
         }
 
@@ -124,19 +190,19 @@ namespace Console_Snake_Game
     class PlayerBody
     {
         public char playerSymbol;
-        public int playerX;
-        public int playerY;
-        public int OldPlayerX;
-        public int OldPlayerY;
-
+        public int X;
+        public int Y;
+        public int OldX;
+        public int OldY;
+        public string LastMove;
 
         public PlayerBody(char pSymbol, int x, int y)
         {
             playerSymbol = pSymbol;
-            playerX = x;
-            playerY = y;
-            OldPlayerX = playerX;
-            OldPlayerY = playerY;
+            X = x;
+            Y = y;
+            OldX = X;
+            OldY = Y;
         }
     }
 }
