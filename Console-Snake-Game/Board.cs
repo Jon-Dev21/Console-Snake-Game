@@ -10,9 +10,24 @@ namespace Console_Snake_Game
 {
     class Board
     {
+        /// <summary>
+        /// Number of rows for the game grid.
+        /// </summary>
         public int Rows { get; set; }
+
+        /// <summary>
+        /// Number of columns for the game grid.
+        /// </summary>
         public int Columns { get; set; }
 
+        /// <summary>
+        /// Boolian variable to indicate if the player hit the wall.
+        /// </summary>
+        private bool WallHit = false;
+
+        /// <summary>
+        /// A string to hold in the saveState of the game.
+        /// </summary>
         public static string boardStr = "";
 
         /// <summary>
@@ -20,9 +35,11 @@ namespace Console_Snake_Game
         /// </summary>
         public string[,] board;
 
-        public int oldPlayerX;
-        public int oldPlayerY;
-
+        /// <summary>
+        /// Board Constructor.
+        /// </summary>
+        /// <param name="rows"></param>
+        /// <param name="columns"></param>
         public Board(int rows, int columns)
         {
             board = new string[rows, columns];
@@ -89,6 +106,23 @@ namespace Console_Snake_Game
             }
         }
 
+        public void Test_PrintPlayerOnly(Player p)
+        {
+            if (p.playerBody.Length == 1)
+            {
+                // Delete old space
+                board[p.playerBody[0].OldX, p.playerBody[0].OldY] = " ";
+
+                // Update OldPlayer X and Y
+                p.playerBody[0].OldX = p.playerBody[0].X;
+                p.playerBody[0].OldY = p.playerBody[0].Y;
+
+                // Add new symbol
+                board[p.playerBody[0].X, p.playerBody[0].Y] = p.playerBody[0].playerSymbol.ToString();
+
+            }
+        }
+
         /// <summary>
         /// Saves the current board state into the boardStr.
         /// </summary>
@@ -140,29 +174,33 @@ namespace Console_Snake_Game
         /// <param name="player"></param>
         public void AddPlayerToBoard(Player player)
         {
+            // Handling player with only snake head.
             if (player.playerBody.Length == 1)
             {
-                // Delete old space
-                board[player.playerBody[0].OldPlayerX, player.playerBody[0].OldPlayerY] = " ";
+                Console.WriteLine("PLAYER X: {0}\nPLAYER Y: {1}", player.playerBody[0].X, player.playerBody[0].Y);
+                Console.WriteLine("\nROWS: {0}\nCOLUMNS: {1}", Rows, Columns);
 
-                // Update OldPlayer X and Y
-                player.playerBody[0].OldPlayerX = player.playerBody[0].playerX;
-                player.playerBody[0].OldPlayerY = player.playerBody[0].playerY;
 
-                // Add new symbol
-                board[player.playerBody[0].playerX, player.playerBody[0].playerY] = player.playerBody[0].playerSymbol.ToString();
-                
+                CheckIsWallHit(player);
             }
             
         }
 
-        public bool IsWallHit()
+        /// <summary>
+        /// Adds a fruit at a random spot in the board.
+        /// </summary>
+        /// <param name="fruit"></param>
+        public void AddFruitToBoard(Fruit fruit)
         {
-            if (true)
-            {
+            Random rand = new Random();
+            fruit.FruitX = rand.Next(2, Rows-1);
+            fruit.FruitY = rand.Next(2, Columns-1);
+            board[fruit.FruitX, fruit.FruitY] = fruit.FruitSymbol;
+        }
 
-            }
-            return false;
+        public bool AteFruit(Player p, Fruit f)
+        {
+            return p.playerBody[0].X == f.FruitX && p.playerBody[0].Y == f.FruitY;
         }
 
         ///// <summary>
@@ -212,6 +250,45 @@ namespace Console_Snake_Game
         public string GetBoardString()
         {
             return boardStr;
+        }
+
+        public bool IsWallHit()
+        {
+            return WallHit;
+        }
+
+        public bool ResetWallHit()
+        {
+            return WallHit = false;
+        }
+
+        /// <summary>
+        /// Checks if the player hit the wall.
+        /// Constantly updates the WallHit variable.
+        /// </summary>
+        /// <param name="player"></param>
+        /// <returns></returns>
+        private bool CheckIsWallHit(Player player)
+        {
+            // If the player hasn't crashed with a wall
+            if (player.playerBody[0].X < Rows - 1 && player.playerBody[0].Y < Columns - 1 && player.playerBody[0].X > 0 && player.playerBody[0].Y > 0)
+            {
+                // Delete old space
+                board[player.playerBody[0].OldX, player.playerBody[0].OldY] = " ";
+
+                // Update OldPlayer X and Y
+                player.playerBody[0].OldX = player.playerBody[0].X;
+                player.playerBody[0].OldY = player.playerBody[0].Y;
+
+                // Add new symbol
+                board[player.playerBody[0].X, player.playerBody[0].Y] = player.playerBody[0].playerSymbol.ToString();
+            }
+            else
+            {
+                WallHit = true;
+            }
+
+            return WallHit;
         }
     }
 }
